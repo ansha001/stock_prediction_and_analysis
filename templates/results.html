@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="{% static "./global.css" %}" />
+    <link rel="stylesheet" href="{% static "resultpage.css" %}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap"
+    />
+  </head>
+  <body>
+    <div class="result-page">
+      <div class="basic-bg-shapes">
+        <div class="bg"></div>
+        <div class="navbar"></div>
+      </div>
+      <div class="navbar-text">
+        <h4 class="about-us">About Us</h4>
+        <h4 class="stocks">Stocks</h4>
+        <h4 class="news">News</h4>
+        <h4 class="stockbuddy">StockBuddy</h4>
+      </div>
+      <div class="charts">
+        <div class="model-1">
+          <div class="card-1"></div>
+          <div class="graph-1"><img src="{% static "ARIMA.png" %}" class="chart-png"></div>
+          <h4 class="model-11" style="position:absolute;left:130px">ARIMA ALGORITHM</h4>
+          <h4 class="p-1">{{ arima_diff }}</h4>
+          <h4 class="v-1">{{ arima }}</h4>
+        </div>
+        <div class="model-2">
+          <div class="card-2"></div>
+          <div class="graph-2"><img src="{% static "LSTM.png" %}" class="chart-png"></div>
+          <h4 class="p-2">{{ lstm_diff }}</h4>
+          <h4 class="v-2">{{ lstm }}</h4>
+          <h4 class="model-21" style="position:absolute;left:130px">LSTM ALGORITHM</h4>
+        </div>
+        <div class="model-3">
+          <div class="card-1"></div>
+          <div class="graph-3"><img src="{% static "LR.png" %}" class="chart-png"></div>
+          <h4 class="p-3">{{ lr_diff }}</h4>
+          <h4 class="v-3">{{ lr }}</h4>
+          <h4 class="model-31" style="position:absolute;left:130px" >LINEAR REGRESSION</h4>
+        </div>
+        {% comment %} <div class="model-4">
+          <div class="card-1"></div>
+          <div class="graph-4"></div>
+          <h4 class="p-4">+5.41↑</h4>
+          <h4 class="v-4">987655443322</h4>
+          <h4 class="model-41">MODEL 4</h4>
+        </div> {% endcomment %}
+        <h4 class="chart-predictions">CHART PREDICTIONS</h4>
+      </div>
+      <div class="news1">
+        <h4 class="news2">NEWS</h4>
+        <div class="news-child"></div>
+        <div class="news-item"></div>
+        <div class="news-inner"></div>
+        <div class="rectangle-div"></div>
+      </div>
+      <div class="result2">
+        <div class="ea-negative"></div>
+        <h4 class="prediction-average">Prediction Average:</h4>
+        <h4 class="negative-sell" class="pos-neg">{{ prediction1 }}</h4>
+      </div>
+      <div class="result1">
+        <div class="ea-positive"></div>
+        <h4 class="positive-buy" class="pos-neg" >{{ prediction }}</h4>
+        <h4 class="prediction-average1">Prediction Average:</h4>
+      </div>
+      <h3 class="stock-name">{{ name }}</h3>
+    </div>
+  </body>
+</html>
