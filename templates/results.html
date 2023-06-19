@@ -21,27 +21,27 @@
         <h4 class="about-us">About Us</h4>
         <h4 class="stocks">Stocks</h4>
         <h4 class="news">News</h4>
-        <h4 class="stockbuddy">StockBuddy</h4>
+        <h4 class="stockbuddy"><a href="/" style="text-decoration:none;color:#ffffffd9">StockBuddy</h4>
       </div>
       <div class="charts">
         <div class="model-1">
           <div class="card-1"></div>
           <div class="graph-1"><img src="{% static "ARIMA.png" %}" class="chart-png"></div>
           <h4 class="model-11" style="position:absolute;left:130px">ARIMA ALGORITHM</h4>
-          <h4 class="p-1">{{ arima_diff }}</h4>
+          <h4 class="{% if arima_diff < 0 %}p-neg{% else %}p-1{% endif %}">{{ arima_diff }}</h4>
           <h4 class="v-1">{{ arima }}</h4>
         </div>
         <div class="model-2">
           <div class="card-2"></div>
           <div class="graph-2"><img src="{% static "LSTM.png" %}" class="chart-png"></div>
-          <h4 class="p-2">{{ lstm_diff }}</h4>
+          <h4 class="{% if lstm_diff < 0 %}p-neg{% else %}p-2{% endif %}">{{ lstm_diff }}</h4>
           <h4 class="v-2">{{ lstm }}</h4>
           <h4 class="model-21" style="position:absolute;left:130px">LSTM ALGORITHM</h4>
         </div>
         <div class="model-3">
           <div class="card-1"></div>
           <div class="graph-3"><img src="{% static "LR.png" %}" class="chart-png"></div>
-          <h4 class="p-3">{{ lr_diff }}</h4>
+          <h4 class="{% if lr_diff < 0 %}p-neg{% else %}p-3{% endif %}">{{ lr_diff }}</h4>
           <h4 class="v-3">{{ lr }}</h4>
           <h4 class="model-31" style="position:absolute;left:130px" >LINEAR REGRESSION</h4>
         </div>
@@ -56,18 +56,18 @@
       </div>
       <div class="news1">
         <h4 class="news2">NEWS</h4>
-        <div class="news-child"></div>
-        <div class="news-item"></div>
-        <div class="news-inner"></div>
-        <div class="rectangle-div"></div>
+        <div class="news-child"><p style="color:white;padding-left:20px;font-size:24px">{{headline1}}</p></div>
+        <div class="news-item"><p style="color:white;padding-left:20px;font-size:24px">{{headline2}}</p></div>
+        <div class="news-inner"><p style="color:white;padding-left:20px;font-size:24px">{{headline3}}</p></div>
+        <div class="rectangle-div"><p style="color:white;padding-left:20px;font-size:24px">{{headline4}}</p></div>
       </div>
       <div class="result2">
-        <div class="ea-negative"></div>
-        <h4 class="prediction-average">Prediction Average:</h4>
-        <h4 class="negative-sell" class="pos-neg">{{ prediction1 }}</h4>
+        <div class="{% if sentiment == 'NEGATIVE' %}ea-negative{% elif sentiment == "NEUTRAL" %}ea-neutral{%else%}ea-positive{% endif %}"></div>
+        <h4 class="prediction-average">News Analysis:</h4>
+        <h4 class="negative-sell" class="pos-neg">{{ sentiment }}</h4>
       </div>
       <div class="result1">
-        <div class="ea-positive"></div>
+        <div class="{% if prediction == 'NEGATIVE-SELL' %}ea-negative{% else %}ea-positive{% endif %}"></div>
         <h4 class="positive-buy" class="pos-neg" >{{ prediction }}</h4>
         <h4 class="prediction-average1">Prediction Average:</h4>
       </div>

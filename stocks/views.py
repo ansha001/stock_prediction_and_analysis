@@ -325,7 +325,55 @@ def stock_page(request):
     print("LSTM: ",lstm_pred)
     print("LR: ",lr_pred)
 
-    return render(request, 'results.html', {'name': stock_name, "arima":arima_pred,"lstm":lstm_pred, "lr":lr_pred, "today":today_stock, "arima_diff":arima_diff, "lstm_diff":lstm_diff, "lr_diff":lr_diff, "prediction": prediction})
+
+    #news part
+    import requests
+
+    def get_news_headlines(stock_name):
+        url = f"https://newsapi.org/v2/everything?q={stock_name}&apiKey=4fcbd08d30204d4e9bcea0a0f5b4950b"
+        response = requests.get(url)
+        data = response.json()
+        headlines = [article['title'] for article in data['articles'][:5]]
+        return headlines
+
+    def analyze_sentiment(headlines):
+        positive_count = 0
+        negative_count = 0
+
+        for headline in headlines:
+            blob = TextBlob(headline)
+            polarity = blob.sentiment.polarity
+            if polarity > 0:
+                positive_count += 1
+            elif polarity < 0:
+                negative_count += 1
+
+        if positive_count > negative_count:
+            sentiment = 'POSITIVE'
+        elif negative_count > positive_count:
+            sentiment = 'NEGATIVE'
+        else:
+            sentiment = 'NEUTRAL'
+
+        return sentiment
+    
+    headlines = get_news_headlines(stock_name)
+
+    if len(headlines) >= 4:
+        headlines = headlines[:4]
+    else:
+        headlines = ['No headlines available'] * 4
+    sentiments = analyze_sentiment(headlines)
+
+    if 'No headlines available' in headlines:
+        sentiments = 'NIL'
+
+    headline1=headlines[0]
+    headline2=headlines[1]
+    headline3=headlines[2]
+    headline4=headlines[3]
+
+    return render(request, 'results.html', {'name': stock_name, "arima":arima_pred,"lstm":lstm_pred, "lr":lr_pred, "today":today_stock, "arima_diff":arima_diff, "lstm_diff":lstm_diff, "lr_diff":lr_diff, "prediction": prediction, "sentiment":sentiments, "headline1":headline1, "headline2":headline2, "headline3":headline3, "headline4":headline4})
 
 
 
